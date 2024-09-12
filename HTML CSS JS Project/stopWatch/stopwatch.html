@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop watch</title>
+
+    <style>
+        body{
+            display: flex;
+            justify-content: center
+            ;
+            align-items: center;
+            background-color: blanchedalmond;
+            height: 100vh;
+        }
+     .digit{
+        font-size: 100px;
+        font-weight: bold;
+     }
+     .tx{
+        font-size: 35px;
+        font-weight: bold;
+     }
+
+     .button-container{
+        text-align: center;
+     }
+     .start-button{
+        font-size: 20px;
+        background-color: green;
+        color: black;
+        border: none;
+        border-radius: 3px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 2px;
+        padding-top: 2px;
+        cursor: pointer;
+        margin: 15px;
+     }
+
+     .stop-button{
+        font-size: 20px;
+        background-color: red;
+        color: black;
+        border: none;
+        border-radius: 3px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 2px;
+        padding-top: 2px;
+        cursor: pointer;
+        margin: 15px;
+     }
+
+     .reset-button{
+        font-size: 20px;
+        background-color:yellow;
+        color: black;
+        border: none;
+        border-radius: 3px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 2px;
+        padding-top: 2px;
+        cursor: pointer;
+        margin: 15px;
+     }
+       
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="time-container">
+        <span class="digit hour ">00</span>
+        <span class="hourt x">Hr</span>
+        <span class="digit minute ">00</span>
+        <span class="minitet x">Min</span>
+        <span class="digit second">00</span>
+        <span class="second tx">Sec</span>
+        <span class="count digit">00</span>
+    </div>
+
+    <div class="button-container">
+        <button class="start-button" onclick="start()"> Start </button>
+        <button class="stop-button" onclick="stop()">Stop</button>
+        <button class="reset-button" onclick="reset()">Reset</button>
+
+    </div>
+</div>
+
+<script>
+    let hour = 0;
+    let minute = 0;
+    let second = 0;
+    let count = 0;
+
+    let timer = false;
+
+    function start() {
+     timer = true;
+     stopwatch();
+    
+    }
+
+    function stop() {
+     timer = false;
+    }
+
+    function reset () {
+        timer = false;
+        hour = 0;
+        minute = 0;
+        second = 0;
+        count = 0;
+        let hrStr = '00';
+        let minStr ='00';
+        let secStr ='00';
+        let countStr ='00';
+
+        displayTime(hrStr,secStr,minStr,countStr);
+    }
+
+    function stopwatch () {
+        count++;
+        if (timer === true) {
+
+               
+     if (count === 100) {
+        second++;
+        count = 0;
+     }
+     if (second === 60) {
+        minute++;
+        second = 0;
+     }
+     if (minute === 60) {
+        hour++;
+        minute = 0;
+        second = 0;
+     }
+
+     let hrStr = hour;
+     let minStr = minute;
+     let secStr = second;
+     let countStr = count;
+    
+     
+     if (second < 10) {
+        secStr = '0'+ secStr;
+     }
+     if (minute < 10) {
+        minStr = '0'+ minStr;
+     }
+     if (hour < 10) {
+        hrStr = '0'+ hrStr;
+     }
+     if (count < 10) {
+        countStr = '0'+ countStr;
+     }
+        displayTime(hrStr,secStr,minStr,countStr);
+        setTimeout('stopwatch()', 10);
+        }
+     
+    }
+
+    function displayTime(hrStr,secStr,minStr,countStr) {
+        document.querySelector('.count').innerHTML = countStr;
+        document.querySelector('.second').innerHTML = secStr;
+        document.querySelector('.minute').innerHTML = minStr;
+        document.querySelector('.hour').innerHTML = hrStr;
+    };
+</script>
+</body>
+</html>
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: blanchedalmond;
+            height: 100vh;
+            margin: 0;
+        }
+        .digit {
+            font-size: 100px;
+            font-weight: bold;
+        }
+        .tx {
+            font-size: 35px;
+            font-weight: bold;
+        }
+        .button-container {
+            text-align: center;
+        }
+        .start-button, .stop-button, .reset-button {
+            font-size: 20px;
+            color: black;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin: 15px;
+        }
+        .start-button {
+            background-color: green;
+        }
+        .stop-button {
+            background-color: red;
+        }
+        .reset-button {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="time-container">
+            <span class="digit hour">00</span>
+            <span class="tx">Hr</span>
+            <span class="digit minute">00</span>
+            <span class="tx">Min</span>
+            <span class="digit second">00</span>
+            <span class="tx">Sec</span>
+            <span class="digit count">00</span>
+        </div>
+        <div class="button-container">
+            <button class="start-button" onclick="start()">Start</button>
+            <button class="stop-button" onclick="stop()">Stop</button>
+            <button class="reset-button" onclick="reset()">Reset</button>
+        </div>
+    </div>
+    <script>
+        let hour = 0;
+        let minute = 0;
+        let second = 0;
+        let count = 0;
+
+        let timer = false;
+        let interval;
+
+        function start() {
+            if (!timer) {
+                timer = true;
+                interval = setInterval(stopwatch, 10);
+            }
+        }
+
+        function stop() {
+            if (timer) {
+                timer = false;
+                clearInterval(interval);
+            }
+        }
+
+        function reset() {
+            timer = false;
+            clearInterval(interval);
+            hour = 0;
+            minute = 0;
+            second = 0;
+            count = 0;
+            updateDisplay();
+        }
+
+        function stopwatch() {
+            count++;
+            if (count === 100) {
+                count = 0;
+                second++;
+            }
+            if (second === 60) {
+                second = 0;
+                minute++;
+            }
+            if (minute === 60) {
+                minute = 0;
+                hour++;
+            }
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            document.querySelector('.count').textContent = count < 10 ? '0' + count : count;
+            document.querySelector('.second').textContent = second < 10 ? '0' + second : second;
+            document.querySelector('.minute').textContent = minute < 10 ? '0' + minute : minute;
+            document.querySelector('.hour').textContent = hour < 10 ? '0' + hour : hour;
+        }
+    </script>
+</body>
+</html> -->

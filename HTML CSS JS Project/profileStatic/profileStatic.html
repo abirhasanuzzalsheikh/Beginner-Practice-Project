@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Statistics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body{
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            align-items: center;
+            text-align: center;
+            background-color: yellow;
+            font-family: cursive;
+            flex-wrap: wrap;
+        
+        }
+        .stat-container{
+            margin: 20px;
+            border: dotted green;
+            min-width: 200px;
+            height: 100px;
+            position: relative;
+            padding: 20px;
+
+            h4{
+                position: absolute;
+                bottom: 1px;
+                left: 50%;
+                transform: translate(-50%);
+                white-space: nowrap;
+            }
+        }
+        .icon{
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        .counter{
+            font-size: 50px;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="stat-container">
+        <i class="fa-solid fa-briefcase fa-3x icon"></i>
+        <div class="counter" data-ceil="15">15</div>
+        <h4>Your Exprerience</h4>
+    </div>
+    <div class="stat-container">
+        <i class="fa-solid fa-cloud fa-3x icon"></i>
+        <div class="counter" data-ceil="259">259</div>
+        <h4>Website made</h4>
+    </div>
+    <div class="stat-container">
+        <i class="fa-brands fa-apple fa-3x icon"></i>
+        <div class="counter" data-ceil="33">33</div>
+        <h4>App made</h4>
+    </div>
+
+    <script>
+        const counterEls = document.querySelectorAll('.counter');
+
+        counterEls.forEach((counterEl) => {
+            counterEl.innerText = '0';
+            increamentCounter()
+
+            function increamentCounter(){
+                let currNum = +counterEl.innerText;
+                const dateCeil = counterEl.getAttribute('data-ceil');
+                const increament = dateCeil / 15;
+                currNum += increament;
+            
+                if (currNum < dateCeil){
+                    counterEl.innerText = Math.ceil(currNum);
+
+                    setTimeout(increamentCounter, 50)
+                }else{
+                    counterEl.innerText = dateCeil;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load Calculator</title>
+    <style>
+      body{
+        padding: 0;
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Courier New', Courier, monospace;
+      }
+
+      .container{
+        background-color: darkcyan;
+        color: aliceblue;
+        padding: 20px;
+        border-radius: 10px;
+
+      }
+
+      input{
+        width: 100%;
+        font-size: 20px;
+        height: 30px;
+      }
+      .payment{
+        font-weight: 600;
+        font-size: 20px;
+      }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Loan Calculator</h1>
+        <p>Loan Amount $
+            <input onchange="calculateLoan()" type="text" id="loan-amount" min="1" max="100000" value="10000">
+        </p>
+        <p>Interest rate %
+            <input onchange="calculateLoan()" type="text" id="interest-rate" min="0" max="100" value="10" step=".1">
+        </p>
+        <p>Months to pay
+            <input onchange="calculateLoan()" type="text" id="months" min="6" max="48" value="12">
+        </p>
+        <p class="payment">Monthly Payment</p>
+    </div>
+    <script>
+        function calculateLoan() {
+            loanAmountValue = document.querySelector('#loan-amount').value;
+            interestRateValue = document.querySelector('#interest-rate').value;
+            monthToPayValue = document.querySelector('#months').value;
+
+            interest = (loanAmountValue * (interestRateValue * 0.01)) / monthToPayValue;
+
+            monthlyPayment = (loanAmountValue / monthToPayValue + interest).toFixed(2);
+
+            document.querySelector('.payment').innerHTML = `Monthly Payment: $${monthlyPayment}`;
+        }
+    </script>
+</body>
+</html>

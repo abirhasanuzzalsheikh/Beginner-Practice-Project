@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <style>
+        body{
+            margin: 0
+            ;
+            padding: 0;
+            background-color: salmon;
+            font-family: 'Courier New', Courier, monospace;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        img{
+            width: 70px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 60px;
+            z-index: 2;
+        }
+
+        .clock{
+            background-color: lightgray;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            border: 5px solid darkgray;
+            box-shadow: 1px 1px 4px rgba(0,0,0,.7);
+            position: relative;
+        }
+        .numbers div{
+            position: absolute;
+            color: lightgoldenrodyellow;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,.7);
+        }
+        .twelve{
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .three{
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .six{
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .nine{
+            left: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+
+        }
+
+        .arrow{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .arrow::before{
+            content: '';
+            width: 25px;
+            height: 25px;
+            background-color: darkgreen;
+            border-radius: 50px;
+            box-shadow: 1px 1px 2px rgba(0,0,0,.7) ;
+            z-index: 4;
+        }
+        .arrow div{
+            background-color: white;
+            position: absolute;
+            width: 7px;
+            height: 120px;
+            transform-origin: bottom center;
+            bottom:50% ;
+            z-index: 3;
+            border-radius: 50% 50% 0 0;
+            box-shadow:1px 1px 2px rgba(0,0,0,.7) ;
+        }
+        .arrow .hour{
+            height: 80px;
+            transform: rotate(35deg);
+        }
+        .arrow .second{
+            transform: rotate(229deg);
+            background-color: goldenrod;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="numbers">
+            <div class="twelve">12</div>
+            <div class="three">3</div>
+            <div class="six">6</div>
+            <div class="nine">9</div>
+        </div>
+        <div class="arrow">
+            <div class="hour"></div>
+            <div class="minute"></div>
+            <div class="second"></div>
+        </div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Logo_da_Rolex.png/800px-Logo_da_Rolex.png?20210605010030" alt="">
+    </div>
+
+    <script>
+        const hourEl = document.querySelector('.hour');
+        const minuteEl = document.querySelector('.minute');
+        const secondEl = document.querySelector('.second');
+
+        function updateClock(){
+            const currDate = new Date();
+            const hour = currDate.getHours();
+            const minute = currDate.getMinutes();
+            const second = currDate.getSeconds();
+            const hourDeg = (hour / 12) * 360;
+            hourEl.style.transform = `rotate(${hourDeg}deg)`;
+            const minuteDeg = (minute / 60) * 360;
+            minuteEl.style.transform = `rotate(${minuteDeg}deg)`
+            const secondDeg = (second / 60) * 360;
+            secondEl.style.transform = `rotate(${secondDeg}deg)`
+        }
+
+        setInterval(updateClock,1000)
+    </script>
+</body>
+</html>

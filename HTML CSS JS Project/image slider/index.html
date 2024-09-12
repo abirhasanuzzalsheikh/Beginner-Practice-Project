@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image slider</title>
+
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+
+        .container{
+            position: relative;
+            width: 100%;
+
+            img{
+                width: -webkit-fill-available;
+                height: auto;
+            }
+
+            .arrow{
+                cursor: pointer;
+                position: absolute;
+                top: 45%;
+                color: black;
+                background-color: rgba(255, 255, 255, 0.712);
+                padding: 8px 19px;
+                font-size: 25px;
+                font-weight: bold;
+                border-radius: 50%;
+            }
+
+            .next{
+                right: 10px;
+
+            }
+
+            .prev{
+                left: 10px;
+            }
+
+            .caption{
+                color: white;
+                font-size: 30px;
+                font-weight: bold;
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                background-color: rgba(0, 0, 0, 0.5);
+                padding: 15px 0;
+            }
+        }
+
+        .side{
+          display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container js-container">
+      </div>
+
+    <script>
+    let sliders = [{
+      image: 'img/images1.jfif',
+      caption: 'Caption 1'
+    }, {
+      image: 'img/images2.jfif',
+      caption: 'Caption 2'
+    },
+  {
+    image: 'img/images3.jfif',
+      caption: 'Caption 3'
+  },{
+    image: 'img/images4.jfif',
+      caption: 'Caption 4'
+  },{
+    image: 'img/images5.jfif',
+      caption: 'Caption 5'
+  }];
+
+  let html = '';
+
+  sliders.forEach((slide) => {
+      html += `
+      <div class="side">
+        <img src="${slide.image}" alt="">
+        <div class="caption">${slide.caption}</div>
+      </div>
+       <span class="arrow prev" onclick="controler(-1)">&#10094;</span>
+      <span class="arrow next" onclick="controler(1)">&#10095;</span>
+      
+  `;  
+  });
+
+document.querySelector('.js-container').innerHTML = html;
+
+      let flag = 0;
+      function controler(num) {
+       flag += num;
+       slideShow(flag);
+      }
+
+      slideShow(flag)
+
+     function slideShow (num) {
+      let slides = document.querySelectorAll('.side');
+
+      if (num === slides.length) {
+        flag = 0;
+        num = 0;
+      } else if (num < 0) {
+        flag = slides.length - 1;
+        num = slides.length - 1;
+      }
+
+      slides.forEach((slide) => {
+        slide.style.display = 'none';
+      })
+
+      slides[num].style.display = 'block';
+     };
+    </script>
+</body>
+</html>

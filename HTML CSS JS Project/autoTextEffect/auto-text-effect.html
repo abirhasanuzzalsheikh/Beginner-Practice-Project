@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Text Effect</title>
+    <style>
+        body{
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: salmon;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+      
+    </div>
+
+    <script>
+        const container = document.querySelector('.container');
+        const careers = ['YouTuber', 'Web Developer', 'Freelancer', 'Blockchain Developer','Instuctor']
+
+        let careerIndex = 0;
+        let charIndex = 0;
+
+        updateText()
+
+        function updateText () {
+            charIndex++;
+            container.innerHTML = `
+            <h1>
+                I am ${careers[careerIndex].slice(0,1) === 'I' ? 'an' : 'a'} ${careers[careerIndex].slice(0,charIndex)}
+            </h1>`;
+       
+            if (charIndex === careers[careerIndex].length) {
+                careerIndex++;
+                charIndex = 0;
+            }
+
+            if (careerIndex === careers.length) {
+                careerIndex = 0;
+            }
+            setTimeout('updateText()', 400);
+        }
+    </script>
+</body>
+</html>

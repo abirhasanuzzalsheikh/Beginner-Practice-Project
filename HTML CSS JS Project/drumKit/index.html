@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drum Kit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body{
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+            background-color: pink;
+        }
+        h1{
+            font-size: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+            letter-spacing: 4px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,.3);
+            white-space: nowrap;
+        }
+        .container{
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .btn{
+            padding: 30px 50px;
+            background-color: white;
+            border: none;
+            margin: 10px;
+            font-size: 30px;
+            min-width: 200px;
+            border-radius: 10px;
+            box-shadow:  0 4px 8px rgba(0,0,0,.3);
+            background-image: url('tom.png');
+            background-size: cover;
+            font-family: cursive;
+            text-shadow:  2px 2px 8px rgba(0,0,0,.3);
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .btn:hover{
+            color: pink;
+        }
+
+        .btn:active{
+            background-size: 105%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Drum Kits <i class="fa-solid fa-drum"></i></h1>
+   
+    <div class="container">
+     
+    </div>
+
+    <script>
+        const drumKits = ['crash','kick','snare','tom'];
+        const containerEl = document.querySelector('.container');
+
+        drumKits.forEach((kit)=>{
+            const btnEl = document.createElement('button');
+            btnEl.classList.add('btn')
+            btnEl.innerText = kit;
+            btnEl.style.backgroundImage =`url(image/${kit}.png)`;
+            containerEl.appendChild(btnEl);
+
+            const audioEl = document.createElement('audio');
+            audioEl.src = kit+'.mp3'
+            containerEl.appendChild(audioEl);
+
+            btnEl.addEventListener('click', () => {
+                audioEl.play();
+            })
+
+            window.addEventListener('keydown', (event) => {
+                if (event.key === kit.slice(0,1)){
+                    audioEl.play()
+                    btnEl.style.transform = 'scale(.9)'
+                    setTimeout(()=>{
+                         btnEl.style.transform = 'scale(1)'
+                    },100)
+                }
+            })
+        })
+    </script>
+</body>
+</html>

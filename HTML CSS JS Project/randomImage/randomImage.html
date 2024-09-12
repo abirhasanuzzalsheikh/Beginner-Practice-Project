@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Image</title>
+    <style>
+        body {
+            background-color: brown;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden; /* Ensure no overflow on the body */
+        }
+
+        .button {
+            background-color: pink;
+            margin: 5px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: black;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            background-color: orangered;
+            width: 0;
+            height: 0;
+            left: var(--xPos);
+            top: var(--yPos);
+            transform: translate(-50%, -50%);
+            transition: width .6s, height .6s;
+            border-radius: 50%;
+        }
+
+        .button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .image-container {
+            text-align: center;
+            max-height: calc(100vh - 70px); /* Adjusted to account for button and margin */
+            overflow: auto; /* Handle overflow */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .image-container img {
+            margin: 5px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .3);
+            background-color: lightgray;
+            height: 300px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="https://picsum.photos/200/300?random=1">
+        <img src="https://picsum.photos/200/300?random=2">
+        <img src="https://picsum.photos/200/300?random=3">
+        <img src="https://picsum.photos/200/300?random=4">
+        <img src="https://picsum.photos/200/300?random=5">
+        <img src="https://picsum.photos/200/300?random=6">
+        <img src="https://picsum.photos/200/300?random=7">
+        <img src="https://picsum.photos/200/300?random=8">
+    </div>
+
+    <a href="#" class="button"><span>Load More</span></a>
+
+    <script>
+        const container = document.querySelector('.image-container');
+        const btnEl = document.querySelector('.button');
+        let imageCount = 8; // Start with the number of images initially present
+        let btnText = document.querySelector('span');
+
+        btnEl.addEventListener('mousemove', (event) => {
+            const x = (event.pageX - btnEl.offsetLeft);
+            const y = (event.pageY - btnEl.offsetTop);
+
+            btnEl.style.setProperty('--xPos', x + 'px');
+            btnEl.style.setProperty('--yPos', y + 'px');
+        });
+
+        btnEl.addEventListener('click', () => {
+            btnText.innerText = 'Loading'
+            addNewImage(10); // Add 10 new images each time
+        });
+
+        function addNewImage(imageNum) {
+            let loadedImage = 0;
+            let totalImage = imageNum;
+            for (let i = 1; i <= imageNum; i++) {
+                const newEl = document.createElement('img');
+                newEl.src = `https://picsum.photos/200/300?random=${Math.round(Math.random() * 100000)}`;
+                newEl.onload = () => {
+                    loadedImage++;
+                    if (loadedImage === totalImage) {
+                        btnText.innerText = 'Load More';
+                    }
+                };
+
+                container.appendChild(newEl);
+            }
+            imageCount += imageNum; // Update the count of images
+        }
+    </script>
+</body>
+</html>
+

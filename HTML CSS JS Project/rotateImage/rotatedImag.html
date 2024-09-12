@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotated Image</title>
+</head>
+<style>
+    body{
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        height: 100vh;
+        justify-content: center;
+        background-color: black;
+        overflow: hidden;
+        background-size: cover;
+        transition: background-image 0.7s;
+    }
+
+    .image-container{
+        position: relative;
+        width: 200px;
+        height: 200px;
+        transform-style: preserve-3d;
+        transform: perspective(1000px) rotateY(0deg);
+        transition: transform 0.7s;
+    }
+   
+   .image-container span{
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        transform: rotateY(calc(var(--i)*45deg)) translateZ(400px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .image-container span img{
+        width: 100%;
+        height: auto; /* Maintain aspect ratio */
+        transition: width 0.6s, transform 0.6s;
+    
+    }
+
+    .image-container span img:hover{
+        width: 300px;
+        transform: scale(1.2); 
+    }
+
+.button-container{
+    position: relative;
+    width: 80%;
+ 
+}
+
+.button{
+    position: absolute;
+    background-color: slateblue;
+    bottom: 80px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover{
+    filter: brightness(1.5);
+
+
+}
+
+.prev{
+    left: 20%;
+}
+
+.next {
+    right: 20%;
+}
+</style>
+
+<body>
+    <div class="image-container">
+        <span style="--i: 1">
+            <img src= "https://picsum.photos/id/1/300/200">
+        </span>
+        <span style="--i: 2">
+            <img src="https://picsum.photos/id/2/300/200">
+        </span>
+        <span style="--i: 3">
+            <img src="https://picsum.photos/id/3/300/200">
+        </span>
+        <span style="--i: 4">
+            <img src="https://picsum.photos/id/4/300/200">
+        </span>
+        <span style="--i: 5">
+            <img src="https://picsum.photos/id/5/300/200">
+        </span>
+        <span style="--i: 6">
+            <img src="https://picsum.photos/id/6/300/200">
+        </span>
+        <span style="--i: 7">
+            <img src="https://picsum.photos/id/7/300/200">
+        </span>
+        <span style="--i: 8">
+            <img src="https://picsum.photos/id/8/300/200">
+        </span>
+     
+    </div>
+    <div class="button-btn">
+        <button class="button prev">Prev</button>
+        <button class="button next">Next</button>
+    </div>
+
+    <script>
+        const imageContainerEl = document.querySelector('.image-container');
+        const prevEl = document.querySelector('.prev');
+        const nextEl = document.querySelector('.next')
+        const bodyEl = document.body;
+        let x = 0;
+        let timer;
+
+        const backgroundImage =[
+            "https://picsum.photos/id/1/300/200",
+            "https://picsum.photos/id/2/300/200",
+            "https://picsum.photos/id/3/300/200",
+            "https://picsum.photos/id/4/300/200",
+            "https://picsum.photos/id/5/300/200",
+            "https://picsum.photos/id/6/300/200",
+            "https://picsum.photos/id/7/300/200",
+            "https://picsum.photos/id/8/300/200"
+        ];
+
+        let imageIndex =0;
+        function backgroundImageUpdate() {
+            imageIndex = (imageIndex + 1) % backgroundImage.length;
+            bodyEl.style.backgroundImage = `url(${backgroundImage[imageIndex]})`;
+        }
+
+        prevEl.addEventListener('click', () => {
+            x += 45;
+            clearTimeout(timer)
+            updateGellery();
+        });
+
+        nextEl.addEventListener('click', () => {
+            x -= 45;
+            clearTimeout(timer)
+            updateGellery();
+        });
+
+
+        function updateGellery() {
+            imageContainerEl.style.transform = `perspective(1000px) rotateY(${x}deg)`;
+            backgroundImageUpdate();
+            timer =setTimeout(() => {
+                x -= 45;
+                updateGellery();
+            },3000)
+        }
+
+        updateGellery();
+    </script>
+</body>
+</html>

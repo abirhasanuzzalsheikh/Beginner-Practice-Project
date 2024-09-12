@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature converter</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+            font-size: 25px;
+            background-color: black;
+            color: white;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            top: 50px;
+            gap: 20px;
+        }
+        h1{
+            text-align: center;
+        }
+
+        .input-containerf{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Temperatur converter</h1>
+    <div class="container">
+        <div class="input-container">
+            <label >celsius</label>
+            <input type="number" value="0" class="js-celsius">
+        </div>
+        <div class="input-container">
+            <label>fahrenheit</label>
+            <input type="number" value="32" class="js-fahrenheit">
+        </div>
+    </div>
+
+    <script>
+    let  celsius = document.querySelector('.js-celsius');
+    let fahrenheit = document.querySelector('.js-fahrenheit');
+
+    celsius.addEventListener('input', () => {
+      let c = celsius.value;
+      let f = (c * 9/5) + 32;
+
+      fahrenheit.value = f;
+
+      if (!Number.isInteger(f)){
+        f = f.toFixed(4);
+      }
+    });
+
+    fahrenheit.addEventListener('input', () => {
+        let f = fahrenheit.value;
+        let c = (f - 32) * 5/9;
+
+        celsius.value = c.toFixed(4);
+
+        if (!Number.isInteger(c)){
+        c = c.toFixed(4);
+      }
+    });
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+</head>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+    }
+    .container{
+        text-align: center;
+    }
+    .leftTime{
+        margin: 40px;
+        font-size: 40px;
+        font-weight: bold;
+    }
+    h1{
+        font-size: 25px;
+    }
+
+    .button{
+        text-transform: uppercase;
+        border: none;
+        padding: 5px 10px;
+        color: white;
+        margin: 10px;
+        cursor: pointer;
+    }
+    .start{
+        background-color: green;
+    }
+    .stop{
+        background-color: red;
+    }
+    .reset{
+        background-color: grey;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>Pomodoro Timer</h1>
+        <div class="leftTime">25:00</div>
+        <button class="button start">start</button>
+        <button class="button stop">stop</button>
+        <button class="button reset">reset</button>
+    </div>
+
+    <script>
+        const startBtn = document.querySelector('.start');
+        const stopBtn = document.querySelector('.stop');
+        const resetBtn = document.querySelector('.reset');
+        const leftTime = document.querySelector('.leftTime');
+
+        let interval;
+        let timeLeft = 1500;
+
+        function updateTimer() {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            let formatTime = `${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`
+
+            leftTime.innerHTML = formatTime;
+        }
+
+        function starTimer() {
+            interval = setInterval(()=>{
+                timeLeft--;
+                updateTimer()
+                if (timeLeft === 0) {
+                    clearInterval(interval);
+                    alert("Time's up!");
+                    timeLeft = 1500;
+                }
+            }, 1000)
+        }
+
+        function stopTimer() {
+            clearInterval(interval);
+        }
+
+        function resetTimer() {
+            clearInterval(interval);
+            timeLeft = 1500;
+            updateTimer();
+        }
+
+
+     startBtn.addEventListener('click', starTimer);
+     stopBtn.addEventListener('click', stopTimer)
+     resetBtn.addEventListener('click', resetTimer)
+    </script>
+</body>
+</html>

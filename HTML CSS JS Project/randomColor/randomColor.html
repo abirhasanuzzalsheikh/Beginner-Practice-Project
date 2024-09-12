@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Color Generator</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: cursive;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .color-container {
+            width: 300px;
+            height: 150px;
+            color: white;
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, .5);
+            border: solid black 2px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Color Generator</h1>
+    <div class="container"></div>
+    <script>
+        function colorGenerator() {
+            const colorContainerEls = document.querySelectorAll('.color-container');
+            colorContainerEls.forEach((colorContainerEl) => {
+                const newColor = RandomColor();
+                colorContainerEl.style.backgroundColor = '#' + newColor;
+                colorContainerEl.innerText = '#' + newColor;
+            });
+        }
+
+        function RandomColor() {
+            const chars = '0123456789abcdef';
+            let colorCode = '';
+            for (let i = 0; i < 6; i++) {
+                const RandomNum = Math.floor(Math.random() * chars.length);
+                colorCode += chars[RandomNum];
+                console.log(colorCode)
+            }
+            return colorCode;
+        }
+
+        const containerEl = document.querySelector('.container');
+        for (let index = 0; index < 30; index++) {
+            const colorContainerEl = document.createElement('div');
+            colorContainerEl.classList.add('color-container');
+            containerEl.appendChild(colorContainerEl);
+        }
+
+        // Call colorGenerator after elements have been added to the DOM
+        colorGenerator();
+    </script>
+</body>
+</html>

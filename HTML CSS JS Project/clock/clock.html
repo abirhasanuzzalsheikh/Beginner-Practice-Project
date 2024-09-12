@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+            background: url('https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+        }
+
+        h1 {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 14px;
+            text-align: center;
+            color: white;
+        }
+
+        .container-clock {
+            display: flex;
+            position: relative;
+        }
+
+        .container {
+            width: 100px;
+            height: 100px;
+            background-color: blueviolet;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            color: white;
+            font-size: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            opacity: 0.8;
+        }
+
+        .text {
+            width: 100%;
+            height: 30px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 15px;
+            font-weight: bold;
+            background-color: darkblue;
+            text-align: center;
+            padding: 10px;
+            opacity: 0.8;
+        }
+
+        .ampm-container {
+            bottom: 0;
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            font-size: 20px;
+            background-color: green;
+            left: 360px;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .ampm {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Digital Clock</h1>
+    <div class="container-clock">
+        <div class="hours container">
+            <span class="hour-digit digit">00</span>
+            <span class="hour-text text">Hours</span>
+        </div>
+        <div class="minutes container">
+            <span class="minute-digit digit">00</span>
+            <span class="minute-text text">Minutes</span>
+        </div>
+        <div class="seconds container">
+            <span class="second-digit digit">00</span>
+            <span class="second-text text">Seconds</span>
+        </div>
+
+        <div class="ampm-container">
+            <span class="ampm">AM</span>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            let h = now.getHours();
+            let m = now.getMinutes();
+            let s = now.getSeconds();
+            let ampm = 'AM';
+
+            // Convert to 12-hour format
+            if (h > 12) {
+                h -= 12;
+                ampm = 'PM';
+            } else if (h === 0) {
+                h = 12; // Midnight case
+                ampm = 'AM';
+            } else if (h === 12) {
+                ampm = 'PM'; // Noon case
+            }
+
+            h = h < 10 ? '0' + h : h;
+            m = m < 10 ? '0' + m : m;
+            s = s < 10 ? '0' + s : s;
+
+            document.querySelector('.hour-digit').innerText = h;
+            document.querySelector('.minute-digit').innerText = m;
+            document.querySelector('.second-digit').innerText = s;
+            document.querySelector('.ampm').innerText = ampm;
+
+            setTimeout(updateClock, 1000);
+        }
+
+        updateClock();
+    </script>
+</body>
+</html>

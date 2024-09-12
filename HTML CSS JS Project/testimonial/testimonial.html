@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonial Slider</title>
+    <style>
+        body{
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: cursive;
+        }
+
+        .container{
+            width: 500px;
+            height: 100px;
+            background-color: blueviolet;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,.3);
+            min-width: 400px;
+            padding: 70px 20px;
+            margin: 5px;
+            color: white;
+            position: relative;
+        }
+
+        img{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -50px;
+        }
+    </style>
+</head>
+<body>
+    
+    <script>
+        const testimonial =[
+            {
+                username: 'Alex Parker',
+                image: 'https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                text: 'I am extremely satisfied with the top-notch quality of the mobile products offered by Apple. Their innovation and sleek designs set them apart from the competition. I can confidently say that Apple has exceeded my expectations in every way.'
+            },
+
+            {
+                
+                username: 'Samantha Adams',
+                image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D',
+                text: 'apples mobile products are excellent, exceeding all expectations with their sleek design and cutting-edge technology. I have been a loyal customer for years and will continue to be impressed with their innovation.'
+            },
+
+            {
+                
+                username: 'Adams',
+                image: 'https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                text: 'I am extremely satisfied with the mobile products from apple. The sleek design and top-notch performance exceed all my expectations. I highly recommend apple to anyone looking for the perfect mobile device.'
+            }
+        ];
+
+        let index = 0;
+
+        function updateTestimonial () {
+          const {username, image, text} = testimonial[index];
+          document.querySelector('body').innerHTML = `
+                <div class="container">
+                <img src="${image}" alt="user-image">
+                <p class="text">${text}</p>
+                <h4 class="username">${username}</h4>
+               </div>`;
+               index++;
+               if (index === testimonial.length){
+                 index=0;
+               }
+
+               setTimeout(() => {
+                updateTestimonial()
+               } , 2000)
+        }
+        updateTestimonial()
+    </script>
+</body>
+</html>
